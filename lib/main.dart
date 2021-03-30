@@ -32,6 +32,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  GoogleMapController _controller;
   final _initialPosition = CameraPosition(target: LatLng(24.903623, 67.198367));
 
   @override
@@ -40,6 +41,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: GoogleMap(
         initialCameraPosition: _initialPosition,
         mapType: MapType.normal,
+        onMapCreated: (conroller){
+          setState(() {
+            _controller = conroller;
+          });
+        },
+        onTap: (cordinate){
+          _controller.animateCamera(CameraUpdate.newLatLng(cordinate));
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){},
